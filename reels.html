@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Post - Scroll One by One (9:16)</title>
+    <style>
+        /* Global Styles */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Video Scroll Container */
+        .video-scroll-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .video-scroll-list {
+            width: 100vw;
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            scrollbar-width: none;
+        }
+        .video-scroll-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Video Scroll Item */
+        .video-scroll-item {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            scroll-snap-align: start;
+            background: #000;
+        }
+
+        /* 9:16 Video Wrapper */
+        .main-video-wrapper {
+            position: relative;
+            width: calc(100vh * 9 / 16);
+            height: 100vh;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+        }
+        .main-video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #000;
+        }
+
+        /* Bottom Info Overlay */
+        .bottom-info {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            width: 90%;
+            z-index: 3;
+        }
+        .profile-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+            background-color: gray;
+        }
+        .username {
+            font-weight: bold;
+            font-size: 1em;
+        }
+        .follow-btn {
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .caption {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        .audio-section {
+            display: flex;
+            align-items: center;
+        }
+        .audio-text {
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .main-video-wrapper {
+                width: 100vw;
+                height: calc(100vw * 16 / 9);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="video-scroll-container">
+        <div class="video-scroll-list" id="videoScrollList"></div>
+    </div>
+
+    <script>
+        const fallbackVideos = [
+            {
+                url: "https://teju-instagram-reels.s3.ap-south-1.amazonaws.com/reels/Video.mp4",
+                username: "Harshey",
+                profilePic: "https://via.placeholder.com/40",
+                caption: "A caption here",
+                audio: "Original audio"
+            },
+            {
+                url: "https://teju-instagram-reels.s3.ap-south-1.amazonaws.com/reels/1754506080117-video_2025-08-04_23-36-24.mp4",
+                username: "hello",
+
+                profilePic: "https://via.placeholder.com/40",
+                caption: "A caption here",
+                audio: "Original audio"
+            },
+            {
+                url: "https://teju-instagram-reels.s3.ap-south-1.amazonaws.com/reels/chenchala+song.mp4",
+                username: "Surya_fans_club",
+                profilePic: "https://via.placeholder.com/40",
+                caption: "A caption here",
+                audio: "Original audio"
+            },
+            {
+                url: "https://teju-instagram-reels.s3.ap-south-1.amazonaws.com/reels/soldier.mp4",
+                username: "Girl-Power",
+                profilePic: "https://via.placeholder.com/40",
+                caption: "A caption here",
+                audio: "Original audio"
+            },
+            {
+                url: "https://teju-instagram-reels.s3.ap-south-1.amazonaws.com/reels/Girl+songs.mp4",
+                username: "Feel-Songs",
+
+
+                profilePic: "https://via.placeholder.com/40",
+                caption: "A caption here",
+                audio: "Original audio"
+            },
+            {
+                url: "https://teju-instagram-reels.s3.ap-south-1.amazonaws.com/reels/nuvvu.mp4",
+                username: "Meghana",
+
+
+                profilePic: "https://via.placeholder.com/40",
+                caption: "A caption here",
+                audio: "Original audio"
+            },
+            {
+                url: "https://teju-instagram-reels.s3.ap-south-1.amazonaws.com/reels/india.mp4",
+                username: "India",
+
+
+                profilePic: "https://via.placeholder.com/40",
+                caption: "A caption here",
+                audio: "Original audio"
+            },
+            {
+                url: "https://teju-instagram-reels.s3.ap-south-1.amazonaws.com/reels/Goal.mp4",
+                username: "Life",
+
+                profilePic: "https://via.placeholder.com/40",
+                caption: "A caption here",
+                audio: "Original audio"
+            },
+            {
+                url: "https://teju-instagram-reels.s3.ap-south-1.amazonaws.com/reels/Ganesh.mp4",
+                username: "Ganesh",
+                profilePic: "https://via.placeholder.com/40",
+                caption: "A caption here",
+                audio: "Original audio"
+            }
+        ];
+
+        let videos = [];
+        let soundEnabled = false;
+
+        function createVideoScrollItem(videoData, index) {
+            const item = document.createElement('div');
+            item.className = 'video-scroll-item';
+            item.innerHTML = `
+                <div class="main-video-wrapper">
+                    <video playsinline preload="auto" loop muted></video>
+                    <div class="bottom-info">
+                        <div class="profile-section">
+                            <img src="${videoData.profilePic}" alt="Profile" class="profile-pic">
+                            <span class="username">${videoData.username}</span>
+                            <button class="follow-btn">Follow</button>
+                        </div>
+                        <p class="caption">${videoData.caption}</p>
+                        <div class="audio-section">
+                            <span class="audio-text">${videoData.audio}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            const video = item.querySelector('video');
+            video.src = videoData.url;
+            if (index === 0) video.autoplay = true;
+
+            video.addEventListener('click', () => {
+                if (!soundEnabled) {
+                    soundEnabled = true;
+                    document.querySelectorAll('video').forEach(v => v.muted = false);
+                    video.play().catch(() => {});
+                }
+            });
+
+            return item;
+        }
+
+        function setupFollowButtons(container) {
+            container.querySelectorAll('.follow-btn').forEach(btn => {
+                btn.onclick = function(e) {
+                    e.stopPropagation();
+                    if (btn.textContent.trim() === 'Follow') {
+                        btn.textContent = 'Following';
+                        btn.style.backgroundColor = '#fff';
+                        btn.style.color = '#000';
+                    } else {
+                        btn.textContent = 'Follow';
+                        btn.style.backgroundColor = 'transparent';
+                        btn.style.color = '#fff';
+                    }
+                };
+            });
+        }
+
+        function renderVideoScrollList() {
+            const list = document.getElementById('videoScrollList');
+            list.innerHTML = '';
+            videos.forEach((video, idx) => {
+                list.appendChild(createVideoScrollItem(video, idx));
+            });
+            setupFollowButtons(list);
+        }
+
+        function setupScrollVideoAutoplay() {
+            const list = document.getElementById('videoScrollList');
+            function handleScroll() {
+                const items = Array.from(list.querySelectorAll('.video-scroll-item'));
+                let found = false;
+                items.forEach(item => {
+                    const rect = item.getBoundingClientRect();
+                    const vh = window.innerHeight;
+                    const video = item.querySelector('video');
+                    if (!found && rect.top < vh / 2 && rect.bottom > vh / 2) {
+                        video.play().catch(() => {});
+                        found = true;
+                    } else {
+                        video.pause();
+                    }
+                });
+            }
+            list.addEventListener('scroll', handleScroll);
+            setTimeout(handleScroll, 100);
+        }
+
+        async function loadVideos() {
+            videos = fallbackVideos;
+            renderVideoScrollList();
+            setupScrollVideoAutoplay();
+
+            try {
+                const res = await fetch("http://BE-LB-479740310.ap-south-1.elb.amazonaws.com/videos", { cache: "no-store" });
+                const apiVideos = await res.json();
+                if (Array.isArray(apiVideos) && apiVideos.length > 0) {
+                    videos = apiVideos.map((url, idx) => ({
+                        url,
+                        username: fallbackVideos[idx % fallbackVideos.length].username,
+                        profilePic: fallbackVideos[idx % fallbackVideos.length].profilePic,
+                        caption: fallbackVideos[idx % fallbackVideos.length].caption,
+                        audio: fallbackVideos[idx % fallbackVideos.length].audio
+                    }));
+                    renderVideoScrollList();
+                    setupScrollVideoAutoplay();
+                }
+            } catch {
+                console.warn("API fetch failed, using fallback only");
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadVideos);
+    </script>
+</body>
+</html>

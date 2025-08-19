@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instagram Clone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Signika:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* Global Styles */
+:root {
+--background-color: rgb(252, 251, 251);
+--font-color: rgb(0, 0, 0);
+--secod-font-color: rgb(101, 101, 101);
+--secondary-font-color: rgb(179, 179, 179);
+--background-on-hover: rgb(215, 214, 214);
+--border-color: rgba(76, 75, 75, 0.737);
+--primary-blue: #0095f6;
+}
+.dark-mode {
+--background-color: rgb(15, 15, 15);
+--font-color: rgb(254, 252, 252);
+--secod-font-color: rgb(197, 195, 195);
+--secondary-font-color: rgb(108, 106, 106);
+--background-on-hover: rgba(52, 51, 51, 0.834);
+--border-color: rgba(76, 75, 75, 0.5);
+}
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+body {
+background-color: var(--background-color);
+overflow-x: hidden;
+min-height: 100vh;
+width: 100vw;
+font-family: 'Roboto', sans-serif;
+transition: background-color 0.3s, color 0.3s;
+}
+p {
+font-family: 'Roboto', sans-serif;
+}
+.container {
+display: flex;
+min-height: 100vh;
+}
+.middle-section {
+display: flex;
+justify-content: center;
+flex-grow: 1;
+padding-bottom: 60px;
+}
+a {
+text-decoration: none;
+color: var(--font-color);
+font-family: 'Signika', sans-serif;
+font-size: 0.9rem;
+font-weight: 550;
+}
+/* Navbar styles */
+.navbar {
+display: flex;
+flex-direction: column;
+gap: 10px;
+height: 100vh;
+width: 245px;
+background-color: var(--background-color);
+padding-top: 20px;
+padding-bottom: 10px;
+padding-inline: 10px;
+border-right: 1px solid var(--border-color);
+position: sticky;
+top: 0px;
+transition: all 0.3s;
+z-index: 1000;
+}
+.instagram-text-logo {
+width: 150px;
+margin: 5px 30px;
+cursor: pointer;
+}
+.instagram-text-logo img {
+width: 100%;
+transition: filter 0.3s;
+}
+.sub-section {
+display: flex;
+align-items: center;
+gap: 25px;
+border-radius: 5px;
+cursor: pointer;
+padding: 10px 20px;
+transition: all 0.2s ease;
+}
+.sub-section:hover {
+background-color: var(--background-on-hover);
+}
+.sub-section:hover i, .sub-section:hover .profile-img {
+transform: scale(1.07);
+transition: all 0.2s ease;
+}
+.sub-section:hover a {
+font-weight: 600;
+}
+.sub-section i {
+font-size: 1.3rem;
+color: var(--font-color);
+transition: all 0.2s ease;
+}
+.profile-img {
+width: 22px;
+transition: all 0.2s ease;
+cursor: pointer;
+}
+.profile-img img {
+width: 100%;
+border-radius: 50%;
+}
+.menu-section {
+display: flex;
+gap: 25px;
+align-items: center;
+margin-top: 23px;
+border-radius: 5px;
+cursor: pointer;
+padding: 10px 20px;
+transition: all 0.3s ease;
+}
+.menu-section:hover {
+background-color: var(--background-on-hover);
+}
+.menu-section:hover i {
+transform: scale(1.07);
+transition: all 0.2s ease;
+}
+.menu-section i {
+color: var(--font-color);
+font-size: 1.2rem;
+transition: all 0.2s ease;
+}
+/* Post section */
+.post-section {
+padding: 20px;
+background-color: var(--background-color);
+max-width: 660px;
+width: 100%;
+}
+.story-section {
+display: flex;
+gap: 20px;
+justify-content: flex-start;
+overflow-x: auto;
+padding: 10px 0;
+margin-bottom: 20px;
+scrollbar-width: none;
+}
+.story-section::-webkit-scrollbar {
+display: none;
+}
+.story {
+display: flex;
+flex-direction: column;
+align-items: center;
+min-width: 75px;
+}
+.story-image {
+background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 65px;
+width: 65px;
+padding: 2px;
+position: relative;
+}
+.story-image img {
+width: 100%;
+height: 100%;
+border: 2px solid var(--background-color);
+border-radius: 50%;
+object-fit: cover;
+}
+.add-story-plus {
+position: absolute;
+bottom: -5px;
+right: -5px;
+background-color: var(--primary-blue);
+color: white;
+width: 22px;
+height: 22px;
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+border: 2px solid var(--background-color);
+
+Teju, [16-08-2025 11:58 PM]
+font-size: 0.8rem;
+font-weight: bold;
+z-index: 10;
+}
+.story span {
+font-family: 'Roboto', sans-serif;
+color: var(--font-color);
+font-size: 0.7rem;
+font-weight: 500;
+margin-top: 5px;
+max-width: 70px;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+.post-area {
+margin-top: 20px;
+margin-bottom: 50px;
+}
+.post-main {
+color: var(--font-color);
+margin-bottom: 30px;
+border: 1px solid var(--border-color);
+border-radius: 8px;
+padding: 10px;
+background-color: var(--background-color);
+}
+.post-image {
+width: 40px;
+height: 40px;
+background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 2px;
+}
+.post-image img {
+width: 90%;
+height: 90%;
+border: 2px solid var(--background-color);
+border-radius: 50%;
+object-fit: cover;
+}
+.post-username {
+color: var(--font-color);
+font-size: 0.95rem;
+font-weight: 600;
+}
+.one-day {
+font-size: 0.8rem;
+color: var(--secod-font-color);
+}
+.post-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 12px;
+padding-inline: 5px;
+}
+.post-header i {
+color: var(--font-color);
+cursor: pointer;
+transition: all 0.2s ease;
+}
+.post-header i:hover {
+color: var(--secondary-font-color);
+}
+.post-left-header {
+display: flex;
+align-items: center;
+gap: 8px;
+cursor: pointer;
+}
+.post-left-header i {
+color: var(--primary-blue);
+}
+.post-left-header i:hover {
+color: #0064e0;
+}
+.post-main-image {
+width: 100%;
+border-radius: 4px;
+overflow: hidden;
+}
+.post-main-image img {
+width: 100%;
+display: block;
+}
+.post-fotter {
+display: flex;
+justify-content: space-between;
+margin-top: 12px;
+padding-inline: 5px;
+}
+.post-fotter i {
+font-size: 1.4rem;
+cursor: pointer;
+transition: all 0.2s ease;
+}
+.post-fotter i:hover {
+color: var(--secondary-font-color);
+}
+.post-fotter-left {
+display: flex;
+gap: 15px;
+}
+.post-description {
+margin-block: 10px;
+padding-inline: 5px;
+}
+.post-liked {
+margin-bottom: 7px;
+font-size: 0.85rem;
+color: var(--secod-font-color);
+cursor: pointer;
+font-weight: 500;
+}
+.title {
+font-size: 0.9rem;
+color: var(--secod-font-color);
+cursor: pointer;
+line-height: 1.4;
+margin-bottom: 5px;
+}
+.title span {
+color: var(--font-color);
+font-weight: bold;
+}
+.comments {
+margin-block: 5px;
+font-size: 0.8rem;
+color: var(--secod-font-color);
+cursor: pointer;
+}
+/* Follow section */
+.follow-section {
+margin-top: 46px;
+width: 320px;
+padding: 10px 20px;
+position: sticky;
+top: 20px;
+max-height: calc(100vh - 40px);
+overflow-y: auto;
+}
+.profile-follow-image {
+width: 40px;
+height: 40px;
+}
+.profile-follow-image img {
+width: 100%;
+border-radius: 50%;
+height: 100%;
+object-fit: cover;
+}
+.profile-follow-content {
+color: var(--font-color);
+}
+.profile-follow-left {
+display: flex;
+gap: 12px;
+cursor: pointer;
+align-items: center;
+}
+.profile-follow {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-block: 15px;
+}
+.profile-follow-content {
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+.follow {
+color: var(--primary-blue);
+font-size: 0.75rem;
+font-weight: 600;
+line-height: 1;
+transition: all 0.1s ease;
+}
+.follow:hover {
+color: #0064e0;
+}
+.profile-id {
+color: var(--font-color);
+font-size: 0.85rem;
+font-weight: 550;
+}
+.profile-name {
+color: var(--secod-font-color);
+font-size: 0.75rem;
+margin-top: 2px;
+font-weight: 400;
+}
+.suggestion {
+color: var(--secod-font-color);
+font-size: 0.9rem;
+font-weight: 600;
+}
+.see-all {
+color: var(--secod-font-color);
+font-size: 0.8rem;
+transition: all 0.1s ease;
+font-weight: 500;
+}
+.see-all:hover {
+color: var(--font-color);
+}
+.suggestion-follow {
+display: flex;
+justify-content: space-between;
+color: var(--font-color);
+margin-block: 10px;
+align-items: center;
+}
+.copyrights {
+color: var(--secod-font-color);
+font-size: 0.8rem;
+margin-top: 30px;
+text-align: center;
+}
+.profile-foolow-hovering {
+padding: 8px 5px;
+cursor: pointer;
+border-radius: 5px;
+transition: all 0.1s ease-in-out;
+}
+.profile-foolow-hovering:hover {
+background-color: var(--background-on-hover);
+}
+.nav-hidden {
+display: none;
+}
+.nav-hidden i {
+font-size: 1.4rem;
+cursor: pointer;
+
+Teju, [16-08-2025 11:58 PM]
+color: var(--font-color);
+transition: all 0.2s ease;
+}
+.nav-hidden i:hover {
+color: var(--secondary-font-color);
+}
+.nav-hidden-logo {
+width: 120px;
+cursor: pointer;
+}
+.nav-hidden-logo img {
+width: 100%;
+}
+.nav-hide-2 {
+display: flex;
+gap: 20px;
+align-items: center;
+}
+/* Modal styles */
+.modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.7);
+z-index: 1000;
+align-items: center;
+justify-content: center;
+}
+.modal-content {
+background-color: var(--background-color);
+border-radius: 12px;
+width: 90%;
+max-width: 500px;
+overflow: hidden;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+.modal-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 15px 20px;
+border-bottom: 1px solid var(--border-color);
+}
+.modal-header h2 {
+font-size: 1.2rem;
+color: var(--font-color);
+font-weight: 600;
+}
+.close-modal {
+font-size: 1.5rem;
+color: var(--font-color);
+cursor: pointer;
+background: none;
+border: none;
+}
+.modal-body {
+padding: 20px;
+}
+.account-list {
+max-height: 300px;
+overflow-y: auto;
+}
+.account-item {
+display: flex;
+align-items: center;
+padding: 12px 15px;
+cursor: pointer;
+border-radius: 8px;
+transition: background-color 0.2s;
+margin-bottom: 5px;
+}
+.account-item:hover {
+background-color: var(--background-on-hover);
+}
+.account-item img {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+object-fit: cover;
+margin-right: 15px;
+}
+.account-info h3 {
+font-size: 1rem;
+color: var(--font-color);
+margin-bottom: 3px;
+}
+.account-info p {
+font-size: 0.85rem;
+color: var(--secod-font-color);
+}
+.switch-btn {
+background-color: var(--primary-blue);
+color: white;
+border: none;
+padding: 8px 15px;
+border-radius: 5px;
+font-weight: 600;
+cursor: pointer;
+transition: background-color 0.2s;
+font-size: 0.9rem;
+}
+.switch-btn:hover {
+background-color: #0077e6;
+}
+.active-account {
+background-color: var(--background-on-hover);
+}
+/* Story modal styles */
+.story-modal-content {
+background-color: var(--background-color);
+border-radius: 12px;
+width: 90%;
+max-width: 400px;
+overflow: hidden;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+.story-preview {
+width: 100%;
+height: 500px;
+background-size: cover;
+background-position: center;
+position: relative;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+.story-actions {
+display: flex;
+justify-content: space-between;
+padding: 15px;
+background: rgba(0, 0, 0, 0.3);
+}
+.story-music {
+display: flex;
+align-items: center;
+gap: 10px;
+color: white;
+font-size: 0.9rem;
+margin-top: auto;
+padding: 15px;
+background: rgba(0, 0, 0, 0.3);
+}
+.story-music i {
+font-size: 1.2rem;
+}
+.upload-btn {
+background-color: var(--primary-blue);
+color: white;
+border: none;
+padding: 10px 20px;
+border-radius: 5px;
+font-weight: 600;
+cursor: pointer;
+margin-top: 15px;
+width: 100%;
+font-size: 1rem;
+}
+.upload-btn:hover {
+background-color: #0077e6;
+}
+.story-upload-form {
+padding: 20px;
+}
+.file-input-container {
+position: relative;
+margin-bottom: 15px;
+}
+.file-input {
+width: 100%;
+padding: 10px;
+border: 1px solid var(--border-color);
+border-radius: 5px;
+background-color: var(--background-color);
+color: var(--font-color);
+}
+.music-select {
+width: 100%;
+padding: 10px;
+border: 1px solid var(--border-color);
+border-radius: 5px;
+background-color: var(--background-color);
+color: var(--font-color);
+margin-bottom: 15px;
+}
+.logout-btn {
+background: none;
+border: none;
+color: var(--font-color);
+cursor: pointer;
+display: flex;
+align-items: center;
+gap: 15px;
+width: 100%;
+padding: 10px 20px;
+border-radius: 5px;
+transition: background-color 0.2s;
+}
+.logout-btn:hover {
+background-color: var(--background-on-hover);
+}
+.logout-btn i {
+font-size: 1.2rem;
+}
+/* Media queries */
+@media (max-width: 1198px) {
+.navbar .sub-section a, .navbar .menu-section a {
+display: none;
+}
+.navbar .sub-section {
+gap: 0;
+}
+.instagram-text-logo {
+display: none;
+}
+.navbar {
+width: 79px;
+}
+.follow-section {
+display: none;
+}
+}
+@media (max-width: 1000px) {
+.follow-section {
+display: none;
+}
+.middle-section .post-area {
+padding-inline: 0;
+}
+}
+@media (max-width: 750px) {
+.container .navbar {
+
+Teju, [16-08-2025 11:58 PM]
+flex-direction: row;
+background-color: var(--background-color);
+position: fixed;
+z-index: 1000;
+height: 60px;
+bottom: -1px;
+top: auto;
+gap: 0;
+border-right: none;
+width: 100vw;
+justify-content: space-around;
+align-items: center;
+padding: 0;
+box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+border-top: 1px solid var(--border-color);
+}
+.middle-section .post-section {
+padding: 60px 5px 20px;
+}
+.navbar a {
+display: none;
+}
+.navbar .sub-section {
+padding: 10px;
+}
+#hidden, #hidden1, #hidden2 {
+display: none;
+}
+.instagram-text-logo {
+display: none;
+}
+.nav-hidden {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 15px 10px;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+background-color: var(--background-color);
+z-index: 999;
+border-bottom: 1px solid var(--border-color);
+}
+.post-main {
+border: none;
+border-radius: 0;
+padding: 0 0 15px;
+margin-bottom: 20px;
+border-bottom: 1px solid var(--border-color);
+}
+}
+@media (max-width: 690px) {
+.post-section .story-section {
+justify-content: flex-start;
+}
+.story-section #story-7 {
+display: none;
+}
+}
+@media (max-width: 562px) {
+.story-section #story-6 {
+display: none;
+}
+}
+@media (max-width: 482px) {
+.story-section #story-5 {
+display: none;
+}
+}
+@media (max-width: 402px) {
+.story-section #story-4 {
+display: none;
+}
+}
+@media (max-width: 323px) {
+#story-3 {
+display: none;
+}
+}
+@media (max-width: 259px) {
+#story-2 {
+display: none;
+}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<nav>
+<div class="navbar">
+<div class="instagram-text-logo">
+<img src="https://i.postimg.cc/qMFTcDw1/instagram-text.png" id="white-color" alt="Instagram">
+</div>
+<div class="sub-section" id="dark-mode-toggle">
+<i class="fa-solid fa-moon"></i>
+<a href="#">Dark mode</a>
+
+</div>
+<div class="sub-section">
+<i class="fa-solid fa-magnifying-glass"></i>
+<a href="#">Search</a>
+
+</div>
+<div class="sub-section">
+<i class="fa-regular fa-compass"></i>
+<a href="#">Explore</a>
+
+</div>
+<div class="sub-section">
+<i class="fa-regular fa-message"></i>
+<a href="messages.html">Messages</a>
+
+</div>
+<div class="sub-section" id="hidden2">
+<i class="fa-regular fa-heart"></i>
+<a href="notifications.html">Notification</a>
+
+</div>
+<div class="sub-section" id="hidden2">
+<i class="fa-regular fa-heart"></i>
+<a href="reels.html">Reels</a>
+
+</div>
+<div class="sub-section">
+<i class="fa-regular fa-message"></i>
+<a href="create.html">Create</a>
+
+</div>
+<div class="sub-section" id="switch-account-button">
+<i class="fa-solid fa-user-group"></i>
+<a href="#">Switch</a>
+
+</div>
+<div class="sub-section" id="logout-button-desktop">
+<i class="fa-solid fa-arrow-right-from-bracket"></i>
+<a href="index.html">Logout</a>
+</div>
+<div class="menu-section" id="hidden">
+<i class="fa-solid fa-bars"></i>
+<a href="#">More</a>
+
+</div>
+</div>
+</nav>
+<div class="middle-section">
+<div class="post-section" id="post-section">
+<div class="nav-hidden">
+<div class="nav-hidden-logo" id="white-2color">
+<img src="https://i.postimg.cc/qMFTcDw1/instagram-text.png" alt="Instagram">
+
+</div>
+<div class="nav-hide-2">
+<i class="fa-regular fa-heart"></i>
+<i class="fa-regular fa-paper-plane"></i>
+</div>
+</div>
+<div class="story-section">
+<!-- Current user story will be added here dynamically -->
+</div>
+<div class="post-area">
+<div class="post-main">
+<div class="post-header">
+<div class="post-left-header">
+<div class="post-image">
+<img src="https://images.unsplash.com/photo-1461800919507-79b16743b257?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fG1lbnMlMjBpbWFnZXN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" alt="Profile">
+</div>
+<p class="post-username">Surya-fans</p>
+<i class="fa-solid fa-certificate"></i>
+<span class="one-day"> • 1h </span>
+</div>
+<i class="fa-solid fa-grip-lines"></i>
+</div>
+<div class="post-main-image">
+<img src="https://i.pinimg.com/originals/71/6b/da/716bdaa1f7a772675b9ae3a42c07a720.jpg" alt="Post">
+</div>
+<div class="post-fotter">
+<div class="post-fotter-left">
+<i class="fa-regular fa-heart"></i>
+<i class="fa-regular fa-message"></i>
+<i class="fa-regular fa-paper-plane"></i>
+</div>
+<i class="fa-regular fa-bookmark"></i>
+</div>
+<div class="post-description">
+<p class="post-liked">Liked by Teju and 12,345 others</p>
+<p class="title"><span>fans-club </span>new photoshoot looks of surya...<br> <span style="color: var(--secod-font-color);">more</span></p>
+<p class="comments">View all 243 comments</p>
+</div>
+</div>
+<div class="post-main">
+<div class="post-header">
+<div class="post-left-header">
+<div class="post-image">
+<img src="https://i.ibb.co/jvvMYFwL/photo-2025-08-03-18-47-05.jpg" alt="Profile">
+
+</div>
+<p class="post-username">Tejaswini </p>
+<i class="fa-solid fa-certificate"></i>
+<span class="one-day"> • 1d </span>
+</div>
+<i class="fa-solid fa-grip-lines"></i>
+</div>
+<div class="post-main-image">
+<img src="https://m.media-amazon.com/images/I/81OXEQrFPTL.jpg" alt="Post">
+
+</div>
+<div class="post-fotter">
+<div class="post-fotter-left">
+<i class="fa-regular fa-heart"></i>
+<i class="fa-regular fa-message"></i>
+<i class="fa-regular fa-paper-plane"></i>
+</div>
+<i class="fa-regular fa-bookmark"></i>
+</div>
+<div class="post-description">
+<p class="post-liked">Liked by shammu and 9,876 others</p>
+<p class="title"><span>Nature </span>Beautiful Red Roses......<br> <span style="color: var(--secod-font-color);">more</span></p>
+<p class="comments">View all 187 comments</p>
+</div>
+</div>
+<div class="post-main">
+<div class="post-header">
+<div class="post-left-header">
+<div class="post-image">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3eYi7dTHmxsAKVooJ0J5SMrNDyCpTRkWDIw&s" alt="Profile">
+</div>
+<p class="post-username">Sundar Pichai</p>
+<i class="fa-solid fa-certificate"></i>
+<span class="one-day"> • 5h </span>
+</div>
+<i class="fa-solid fa-grip-lines"></i>
+</div>
+<div class="post-main-image">
+<img src="https://media.licdn.com/dms/image/v2/D5622AQFPmjfsOM4V7Q/feedshare-shrink_800/B56ZPlcF5oGsAk-/0/1734721167495?e=2147483647&v=beta&t=bSrqzh5mimC1XDUkxV2wY07GLVq3zZxUkOgme2mp6CY" alt="Post">
+
+</div>
+<div class="post-fotter">
+<div class="post-fotter-left">
+<i class="fa-regular fa-heart"></i>
+<i class="fa-regular fa-message"></i>
+<i class="fa-regular fa-paper-plane"></i>
+</div>
+<i class="fa-regular fa-bookmark"></i>
+</div>
+<div class="post-description">
+<p class="post-liked">Liked by hamsley and 23,456 others</p>
+<p class="title"><span>John Legend </span>company information about work in google...<br> <span style="color: var(--secod-font-color);">more</span></p>
+<p class="comments">View all 1,245 comments</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="follow-section">
+<div class="profile-follow profile-foolow-hovering" id="current-user-profile">
+<div class="profile-follow-left">
+<div class="profile-follow-image">
+<!-- Profile Image -->
+<img id="current-user-img" alt="Profile">
+</div>
+<!-- Profile Details -->
+<div class="profile-follow-content">
+<p class="profile-id" id="current-user-fullname">Full Name</p>
+<p class="profile-name" id="current-user-username">Username</p>
+<a href="#" class="follow" id="switch-link">switch</a>
+
+</div>
+</div>
+</div>
+<div class="suggestion-follow">
+<p class="suggestion">Suggested for you</p>
+<a href="#" class="see-all">See all</a>
+
+</div>
+<div class="profile-follow profile-foolow-hovering">
+<div class="profile-follow-left">
+<div class="profile-follow-image">
+<img src="https://media.istockphoto.com/id/1388253782/photo/positive-successful-millennial-business-professional-man-head-shot-portrait.webp?b=1&s=612x612&w=0&k=20&c=VsTsa0kjyZ7ALe-nyKAUfynyRxZo8H4LRMdu_ecPuOY=" alt="Profile">
+</div>
+<div class="profile-follow-content">
+<p class="profile-id">a_b_i_n_a_s_h__4_4_4_5__</p>
+<p class="profile-name">Followed by shiv_s177</p>
+</div>
+</div>
+<a href="#" class="follow">Follow</a>
+
+</div>
+<div class="profile-follow profile-foolow-hovering">
+<div class="profile-follow-left">
+<div class="profile-follow-image">
+<img src="https://img.freepik.com/premium-photo/ai-generated-image-beautiful-kids-illustration_999340-2924.jpg" alt="Profile">
+
+</div>
+<div class="profile-follow-content">
+<p class="profile-id">R.shammu</p>
+<p class="profile-name">Followed by shriiiiii_89_ + 2 more</p>
+</div>
+</div>
+<a href="#" class="follow">Follow</a>
+
+</div>
+<div class="profile-follow profile-foolow-hovering">
+<div class="profile-follow-left">
+<div class="profile-follow-image">
+<img src="https://cdn.pixabay.com/photo/2020/08/02/18/08/woman-5458225_640.png" alt="Profile">
+</div>
+<div class="profile-follow-content">
+<p class="profile-id">chaganti swathi</p>
+<p class="profile-name">Followed by ajeetyadav8242 +....</p>
+</div>
+</div>
+<a href="#" class="follow">Follow</a>
+
+</div>
+<div class="profile-follow profile-foolow-hovering">
+<div class="profile-follow-left">
+<div class="profile-follow-image">
+<img src="https://cdn.pixabay.com/photo/2021/07/19/04/36/woman-6477171_640.jpg" alt="Profile">
+</div>
+<div class="profile-follow-content">
+<p class="profile-id">suhana khan</p>
+<p class="profile-name">Followed by ravish_thakur31</p>
+</div>
+</div>
+<a href="#" class="follow">Follow</a>
+
+</div>
+<div class="profile-follow profile-foolow-hovering">
+<div class="profile-follow-left">
+<div class="profile-follow-image">
+<img src="https://cdn.pixabay.com/photo/2019/11/01/06/11/profile-4593404_640.jpg" alt="Profile">
+</div>
+<div class="profile-follow-content">
+<p class="profile-id">michal_kuu</p>
+<p class="profile-name">New to Instagram</p>
+</div>
+</div>
+<a href="#" class="follow">Follow</a>
+
+</div>
+<p class="copyrights">@All rights reserved by Tejaswini 2025</p>
+</div>
+</div>
+<!-- Switch Account Modal -->
+<div class="modal" id="switch-account-modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2>Switch Account</h2>
+<button class="close-modal">&times;</button>
+</div>
+<div class="modal-body">
+<div class="account-list" id="account-list">
+<!-- Accounts will be populated by JavaScript -->
+</div>
+</div>
+</div>
+</div>
+<!-- Add Story Modal -->
+<div class="modal" id="add-story-modal">
+<div class="story-modal-content">
+<div class="modal-header">
+<h2>Add Story</h2>
+<button class="close-modal">&times;</button>
+</div>
+<div class="story-upload-form">
+<div class="file-input-container">
+<input type="file" id="story-file" class="file-input" accept="image/*,video/*">
+</div>
+<div class="file-input-container">
+<select id="story-music" class="music-select">
+<option value="">No Music</option>
+<option value="happy">Happy Vibes</option>
+<option value="chill">Chill Beats</option>
+<option value="summer">Summer Feeling</option>
+<option value="romantic">Romantic Mood</option>
+<option value="epic">Epic Adventure</option>
+</select>
+</div>
+<button id="upload-story-btn" class="upload-btn">Upload Story</button>
+</div>
+</div>
+</div>
+<script>
+// User authentication simulation
+let currentUser = null;
+
+// Simulate user login
+function simulateLogin() {
+const loggedInUser = localStorage.getItem('currentUser');
+if (loggedInUser) {
+currentUser = JSON.parse(loggedInUser);
+} else {
+// Create a new user if not logged in
+currentUser = {
+id: 'user1',
+username: 'teju',
+fullname: 'Tejaswini',
+image: 'https://i.ibb.co/jvvMYFwL/photo-2025-08-03-18-47-05.jpg',
+stories: []
+};
+localStorage.setItem('currentUser', JSON.stringify(currentUser));
+}
+updateProfile();
+}
+
+// Update profile with current user
+function updateProfile() {
+if (currentUser) {
+document.getElementById('current-user-img').src = currentUser.image;
+document.getElementById('current-user-fullname').textContent = currentUser.fullname;
+document.getElementById('current-user-username').textContent = currentUser.username;
+updateStorySection();
+}
+}
+// Update story section with current user's stories
+function updateStorySection() {
+const storySection = document.querySelector('.story-section');
+storySection.innerHTML = '';
+
+// Add current user's story first
+const userStory = document.createElement('div');
+userStory.className = 'story';
+userStory.id = 'current-user-story';
+userStory.innerHTML = `
+<div class="story-image">
+<img src="${currentUser.image}" alt="Your story">
+<div class="add-story-plus">+</div>
+</div>
+<span>Your story</span>
+`;
+storySection.appendChild(userStory);
+
+// Add event listener for adding story
+userStory.addEventListener('click', openStoryModal);
+
+// Add other hardcoded stories
+const stories = [
+{ id: 'story1', image: 'https://www.behindwoods.com/tamil-actress/samantha-ruth-prabhu/samantha-ruth-prabhu-stills-photos-pictures-1892.jpg', name: 'samantha ruth prabhu.' },
+{ id: 'story2', image: 'https://www.behindwoods.com/tamil-actress/kajal-aggarwal/kajal-aggarwal-stills-photos-pictures-1743.jpg', name: 'Kajal Agarwal..' },
+{ id: 'story3', image: 'https://www.behindwoods.com/tamil-actor/surya/surya-stills-photos-pictures-02.jpg', name: 'actor surya..' },
+{ id: 'story4', image: 'https://media.istockphoto.com/id/1418475387/photo/robotic-hand-pressing-a-keyboard-on-a-laptop-3d-rendering.webp?b=1&s=612x612&w=0&k=20&c=bqtiTjtbsN85HMdO40gidWq6uE4BW1-RGlUOkSfEgoI=', name: 'Anika@189' },
+{ id: 'story5', image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cHJvZmlsZSUyMGltYWdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60', name: 'Kashvi_tut' },
+{ id: 'story6', image: 'https://images.unsplash.com/photo-1558203728-00f45181dd84?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmlsZSUyMGltYWdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60', name: 'Rebecca.io' }
+];
+
+stories.forEach(story => {
+const storyElement = document.createElement('div');
+storyElement.className = 'story';
+storyElement.id = story.id;
+storyElement.innerHTML = `
+<div class="story-image">
+<img src="${story.image}" alt="${story.name}">
+</div>
+<span>${story.name}</span>
+`;
+storySection.appendChild(storyElement);
+});
+}
+
+// Open story modal
+function openStoryModal() {
+document.getElementById('add-story-modal').style.display = 'flex';
+}
+
+// Close modal function
+function closeModal(modalId) {
+document.getElementById(modalId).style.display = 'none';
+}
+
+// Upload story
+function uploadStory() {
+const fileInput = document.getElementById('story-file');
+const musicSelect = document.getElementById('story-music');
+
+if (fileInput.files.length > 0) {
+const file = fileInput.files[0];
+const reader = new FileReader();
+
+reader.onload = function(e) {
+// Create story object
+const newStory = {
+id: `story-${Date.now()}`,
+url: e.target.result,
+music: musicSelect.value,
+timestamp: new Date().toISOString()
+};
+
+// Add to user's stories
+currentUser.stories.unshift(newStory);
+
+// Update localStorage
+localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+// Update UI
+updateStorySection();
+
+// Close modal
+closeModal('add-story-modal');
+
+// Reset form
+fileInput.value = '';
+musicSelect.value = '';
+
+alert('Story uploaded successfully!');
+};
+
+reader.readAsDataURL(file);
+} else {
+alert('Please select an image or video for your story');
+}
+}
+
+// Logout function
+function logout() {
+localStorage.removeItem('currentUser');
+// Redirect to login page (simulated)
+alert('You have been logged out. Redirecting to login...');
+// In a real app, you would redirect to login page
+// window.location.href = 'login.html';
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+simulateLogin();
+// Dark mode toggle
+const darkModeToggle = document.getElementById('dark-mode-toggle');
+const whiteLogo = document.getElementById('white-color');
+const whiteLogo2 = document.getElementById('white-2color');
+darkModeToggle.addEventListener('click', function() {
+document.body.classList.toggle('dark-mode');
+if (document.body.classList.contains('dark-mode')) {
+whiteLogo.style.filter = 'brightness(5)';
+whiteLogo2.style.filter = 'brightness(5)';
+} else {
+whiteLogo.style.filter = 'none';
+whiteLogo2.style.filter = 'none';
+}
+});
+
+// Event listeners for modals
+document.querySelectorAll('.close-modal').forEach(button => {
+button.addEventListener('click', function() {
+const modal = this.closest('.modal');
+modal.style.display = 'none';
+});
+});
+
+// Logout buttons
+document.getElementById('logout-button-desktop').addEventListener('click', logout);
+
+// Upload story button
+document.getElementById('upload-story-btn').addEventListener('click', uploadStory);
+
+// Close modals when clicking outside
+window.addEventListener('click', function(e) {
+if (e.target.classList.contains('modal')) {
+e.target.style.display = 'none';
+}
+});
+});
+</script>
+</body>
+</html>
+
+

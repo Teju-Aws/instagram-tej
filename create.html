@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insta_Tej Reels</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Signika:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        :root {
+            --background-color: rgb(252, 251, 251);
+            --font-color: rgb(0, 0, 0);
+            --secod-font-color: rgb(101, 101, 101);
+            --secondary-font-color: rgb(179, 179, 179);
+            --background-on-hover: rgb(215, 214, 214);
+            --border-color: rgba(76, 75, 75, 0.737);
+            --primary-blue: #0095f6;
+            --reels-red: #f82e6d;
+        }
+
+        .dark-mode {
+            --background-color: rgb(15, 15, 15);
+            --font-color: rgb(254, 252, 252);
+            --secod-font-color: rgb(197, 195, 195);
+            --secondary-font-color: rgb(108, 106, 106);
+            --background-on-hover: rgba(52, 51, 51, 0.834);
+            --border-color: rgba(76, 75, 75, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--background-color);
+            overflow-x: hidden;
+            min-height: 100vh;
+            width: 100vw;
+            font-family: 'Roboto', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        p {
+            font-family: 'Roboto', sans-serif; 
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .middle-section {
+            display: flex;
+            justify-content: center;
+            flex-grow: 1;
+            padding-bottom: 60px;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--font-color);
+            font-family: 'Signika', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 550;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            height: 100vh; 
+            width: 245px;
+            background-color: var(--background-color);
+            padding-top: 20px;
+            padding-bottom: 10px;
+            padding-inline: 10px;
+            border-right: 1px solid var(--border-color);
+            position: sticky; 
+            top: 0px;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .instagram-text-logo {
+            width: 150px;
+            margin: 5px 30px;
+            cursor: pointer;
+        }
+
+        .instagram-text-logo img {
+            width: 100%;
+            transition: filter 0.3s;
+        }
+
+        .sub-section {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px 20px;
+            transition: all 0.2s ease;
+        }
+
+        .sub-section:hover {
+            background-color: var(--background-on-hover);
+        }
+
+        .sub-section:hover i, .sub-section:hover .profile-img {
+            transform: scale(1.07);
+            transition: all 0.2s ease;
+        }
+
+        .sub-section:hover a {
+            font-weight: 600;
+        }
+
+        .sub-section i {
+            font-size: 1.3rem;
+            color: var(--font-color);
+            transition: all 0.2s ease;
+        }
+
+        .profile-img {
+            width: 22px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .profile-img img {
+            width: 100%;
+            border-radius: 50%;
+        }
+
+        .menu-section {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            margin-top: 23px;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-section:hover {
+            background-color: var(--background-on-hover);
+        }
+
+        .menu-section:hover i {
+            transform: scale(1.07);
+            transition: all 0.2s ease;
+        }
+
+        .menu-section i {
+            color: var(--font-color);
+            font-size: 1.2rem;
+            transition: all 0.2s ease;
+        }
+
+        /* Reels specific styles */
+        .reels-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .reel-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            height: 500px;
+            background: #000;
+            cursor: pointer;
+        }
+
+        .reel-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .reel-item:hover .reel-video {
+            transform: scale(1.03);
+        }
+
+        .reel-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            pointer-events: none;
+        }
+
+        .reel-user {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .reel-user img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 2px solid var(--reels-red);
+        }
+
+        .reel-username {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .reel-caption {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .reel-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reel-actions {
+            display: flex;
+            gap: 15px;
+            pointer-events: auto;
+        }
+
+        .reel-actions i {
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: rgba(0,0,0,0.5);
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .reel-actions i:hover {
+            transform: scale(1.1);
+            background: rgba(0,0,0,0.8);
+        }
+
+        .reel-music {
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #ddd;
+        }
+
+        .reel-music i {
+            margin-right: 5px;
+        }
+
+        .upload-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            width: 100%;
+        }
+
+        .upload-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .upload-icon i {
+            font-size: 3rem;
+            color: white;
+        }
+
+        .upload-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--font-color);
+            font-weight: 600;
+        }
+
+        .upload-description {
+            color: var(--secod-font-color);
+            margin-bottom: 30px;
+            line-height: 1.6;
+            max-width: 500px;
+        }
+
+        .upload-form {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-input-button {
+            display: block;
+            padding: 15px 20px;
+            background-color: var(--primary-blue);
+            color: white;
+            border-radius: 10px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .file-input-button:hover {
+            background-color: #0081e0;
+        }
+
+        .caption-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--font-color);
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .upload-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #833ab4, #fd1d1d);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .upload-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        .upload-btn:disabled {
+            background: var(--secod-font-color);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .preview-container {
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+            display: none;
+        }
+
+        .preview-video {
+            width: 100%;
+            border-radius: 10px;
+            display: none;
+            background: black;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+            display: none;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, #833ab4, #fd1d1d);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .status-message {
+            margin-top: 15px;
+            font-weight: 500;
+            min-height: 25px;
+            text-align: center;
+        }
+
+        .success {
+            color: #4caf50;
+        }
+
+        .error {
+            color: #f44336;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 20px;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            cursor: pointer;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .tab.active {
+            font-weight: 700;
+            color: var(--reels-red);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--reels-red);
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: white;
+            opacity: 0.7;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .reel-item:hover .play-icon {
+            opacity: 1;
+        }
+
+        /* Volume control */
+        .volume-control {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        .volume-control i {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .reels-container {
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
+            
+            .reel-item {
+                height: 400px;
+            }
+            
+            .navbar {
+                width: 70px;
+            }
+            
+            .navbar .sub-section a, .navbar .menu-section a {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="navbar">
+                <div class="instagram-text-logo">
+                    <img src="https://i.postimg.cc/qMFTcDw1/instagram-text.png" id="white-color" alt="Instagram">
+                </div>
+                <div class="sub-section" id="dark-mode-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                    <a href="#">Dark mode</a>
+                </div>
+                <div class="sub-section">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <a href="#">Search</a>
+                </div>
+                <div class="sub-section">
+                    <i class="fa-regular fa-compass"></i>
+                    <a href="#">Explore</a>
+                </div>
+                <div class="sub-section">
+                    <i class="fa-regular fa-message"></i>
+                    <a href="messages.html">Messages</a>
+                </div>
+                <div class="sub-section">
+                    <i class="fa-solid fa-clapperboard"></i>
+                    <a href="#" id="reels-link">Reels</a>
+                </div>
+                <div class="sub-section">
+                    <i class="fa-solid fa-square-plus"></i>
+                    <a href="#" id="upload-link">Create</a>
+                </div>
+                <div class="sub-section" id="switch-account-button">
+                    <i class="fa-solid fa-user-group"></i>
+                    <a href="#">Switch</a>
+                </div>
+                <div class="menu-section" id="hidden">
+                    <i class="fa-solid fa-bars"></i>
+                    <a href="#">More</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="middle-section">
+            <div class="tabs">
+                <div class="tab active" id="reels-tab">Reels Feed</div>
+                <div class="tab" id="upload-tab">Upload Reel</div>
+            </div>
+            
+            <!-- Reels Feed Section -->
+            <div class="reels-container" id="reels-feed">
+                <!-- Reels will be loaded here -->
+            </div>
+            
+            <!-- Upload Section -->
+            <div class="upload-container" id="upload-section" style="display: none;">
+                <div class="upload-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h2 class="upload-title">Upload a New Reel</h2>
+                <p class="upload-description">
+                    Share your moments with the world. Upload a video up to 90 seconds long to create your reel.
+                </p>
+                
+                <form class="upload-form" id="reel-upload-form">
+                    <div class="file-input-wrapper">
+                        <div class="file-input-button">
+                            <i class="fas fa-cloud-upload-alt"></i> Select Video
+                        </div>
+                        <input type="file" id="video-file" accept="video/*" required>
+                    </div>
+                    
+                    <div class="preview-container" id="video-preview">
+                        <video class="preview-video" id="video-preview-player" controls></video>
+                    </div>
+                    
+                    <textarea class="caption-input" id="reel-caption" placeholder="Add a caption for your reel..."></textarea>
+                    
+                    <div class="progress-bar" id="progress-container">
+                        <div class="progress" id="upload-progress"></div>
+                    </div>
+                    
+                    <button type="submit" class="upload-btn" id="upload-btn" disabled>
+                        <i class="fas fa-upload"></i> Upload Reel
+                    </button>
+                    
+                    <div class="status-message" id="status-message"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM elements
+        const reelsFeed = document.getElementById('reels-feed');
+        const uploadSection = document.getElementById('upload-section');
+        const reelsTab = document.getElementById('reels-tab');
+        const uploadTab = document.getElementById('upload-tab');
+        const videoFileInput = document.getElementById('video-file');
+        const videoPreview = document.getElementById('video-preview-player');
+        const previewContainer = document.getElementById('video-preview');
+        const captionInput = document.getElementById('reel-caption');
+        const uploadBtn = document.getElementById('upload-btn');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('upload-progress');
+        const statusMessage = document.getElementById('status-message');
+        const uploadForm = document.getElementById('reel-upload-form');
+
+        // Load reels from localStorage or use sample data
+        function loadReelsFromStorage() {
+            const storedReels = localStorage.getItem('insta_tej_reels');
+            if (storedReels) {
+                return JSON.parse(storedReels);
+            }
+            
+            // Return sample reels if nothing in storage
+            return [
+                {
+                    id: 1,
+                    username: "travel_diaries",
+                    userImage: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZSUyMGltYWdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+                    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-going-down-a-curved-highway-down-a-mountain-41576-large.mp4",
+                    caption: "Mountain views on my road trip 🏔️ #travel #adventure",
+                    likes: 1245,
+                    comments: 89,
+                    music: "Original Sound - Travel Diaries"
+                },
+                {
+                    id: 2,
+                    username: "foodie_adventures",
+                    userImage: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZSUyMGltYWdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+                    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-cooking-vegetables-on-a-frying-pan-41510-large.mp4",
+                    caption: "New recipe experiment turned out amazing! 😋 #cooking #foodie",
+                    likes: 3241,
+                    comments: 214,
+                    music: "Cooking Vibes - Foodie Adventures"
+                },
+                {
+                    id: 3,
+                    username: "fitness_journey",
+                    userImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmlsZSUyMGltYWdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+                    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-young-man-exercising-on-a-running-machine-40731-large.mp4",
+                    caption: "Morning workout routine to start the day right! 💪 #fitness #gym",
+                    likes: 2876,
+                    comments: 142,
+                    music: "Workout Motivation - Fitness Journey"
+                },
+                {
+                    id: 4,
+                    username: "art_life",
+                    userImage: "https://images.unsplash.com/photo-1516726817505-f5ed825624d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cHJvZmlsZSUyMGltYWdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+                    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-painting-on-canvas-41511-large.mp4",
+                    caption: "New painting in progress 🎨 #art #creative",
+                    likes: 4123,
+                    comments: 321,
+                    music: "Creative Flow - Art Life"
+                }
+            ];
+        }
+
+        // Store all reels
+        let allReels = loadReelsFromStorage();
+
+        // Load reels
+        function loadReels() {
+            reelsFeed.innerHTML = '';
+            
+            allReels.forEach(reel => {
+                const reelElement = document.createElement('div');
+                reelElement.className = 'reel-item';
+                reelElement.innerHTML = `
+                    <div class="play-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="volume-control">
+                        <i class="fas fa-volume-mute"></i>
+                    </div>
+                    <video class="reel-video" autoplay muted loop playsinline>
+                        <source src="${reel.videoUrl}" type="video/mp4">
+                    </video>
+                    <div class="reel-overlay">
+                        <div class="reel-user">
+                            <img src="${reel.userImage}" alt="${reel.username}">
+                            <div class="reel-username">${reel.username}</div>
+                        </div>
+                        <div class="reel-caption">${reel.caption}</div>
+                        <div class="reel-meta">
+                            <div class="reel-actions">
+                                <i class="far fa-heart"></i>
+                                <i class="far fa-comment"></i>
+                                <i class="far fa-paper-plane"></i>
+                            </div>
+                            <div class="reel-music">
+                                <i class="fas fa-music"></i> ${reel.music}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reelsFeed.appendChild(reelElement);
+                
+                // Get the video element
+                const video = reelElement.querySelector('.reel-video');
+                const volumeBtn = reelElement.querySelector('.volume-control i');
+                
+                // Add event to play video when loaded
+                video.onloadeddata = () => {
+                    video.play().catch(error => {
+                        console.log('Autoplay prevented:', error);
+                        reelElement.querySelector('.play-icon').style.opacity = '0.7';
+                    });
+                };
+                
+                // Add click event to toggle play/pause
+                reelElement.addEventListener('click', (e) => {
+                    // Don't pause if clicking on volume control
+                    if (e.target.closest('.volume-control')) return;
+                    
+                    if (video.paused) {
+                        video.play();
+                        reelElement.querySelector('.play-icon').style.opacity = '0';
+                    } else {
+                        video.pause();
+                        reelElement.querySelector('.play-icon').style.opacity = '0.7';
+                    }
+                });
+                
+                // Add volume toggle functionality
+                volumeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (video.muted) {
+                        video.muted = false;
+                        volumeBtn.classList.remove('fa-volume-mute');
+                        volumeBtn.classList.add('fa-volume-up');
+                    } else {
+                        video.muted = true;
+                        volumeBtn.classList.remove('fa-volume-up');
+                        volumeBtn.classList.add('fa-volume-mute');
+                    }
+                });
+            });
+        }
+
+        // Save reels to localStorage
+        function saveReelsToStorage() {
+            localStorage.setItem('insta_tej_reels', JSON.stringify(allReels));
+        }
+
+        // Tab switching
+        reelsTab.addEventListener('click', () => {
+            reelsTab.classList.add('active');
+            uploadTab.classList.remove('active');
+            reelsFeed.style.display = 'grid';
+            uploadSection.style.display = 'none';
+        });
+
+        uploadTab.addEventListener('click', () => {
+            uploadTab.classList.add('active');
+            reelsTab.classList.remove('active');
+            uploadSection.style.display = 'flex';
+            reelsFeed.style.display = 'none';
+        });
+
+        // Video preview
+        videoFileInput.addEventListener('change', function(e) {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                
+                // Check file type and size
+                if (!file.type.includes('video')) {
+                    showStatus('Please select a valid video file', 'error');
+                    return;
+                }
+                
+                if (file.size > 100 * 1024 * 1024) { // 100MB limit
+                    showStatus('Video file is too large (max 100MB)', 'error');
+                    return;
+                }
+                
+                // Create object URL for the video file
+                const videoURL = URL.createObjectURL(file);
+                videoPreview.src = videoURL;
+                videoPreview.style.display = 'block';
+                previewContainer.style.display = 'block';
+                uploadBtn.disabled = false;
+                showStatus('Video selected. Ready to upload!', 'success');
+                
+                // Load metadata to display video
+                videoPreview.load();
+            }
+        });
+
+        // Upload simulation
+        uploadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!videoFileInput.files[0]) {
+                showStatus('Please select a video file first', 'error');
+                return;
+            }
+            
+            const file = videoFileInput.files[0];
+            const videoURL = URL.createObjectURL(file);
+            
+            // Disable button during upload
+            uploadBtn.disabled = true;
+            uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+            progressContainer.style.display = 'block';
+            statusMessage.textContent = '';
+            
+            // Simulate upload progress
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 10) + 1;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    
+                    // Show success message
+                    showStatus('Reel uploaded successfully!', 'success');
+                    uploadBtn.innerHTML = '<i class="fas fa-check"></i> Upload Complete';
+                    
+                    // Reset form after delay
+                    setTimeout(() => {
+                        resetUploadForm();
+                        showStatus('Your reel is now live on Reels page!', 'success');
+                    }, 2000);
+                    
+                    // Add the new reel to the feed
+                    addNewReelToFeed(videoURL);
+                }
+                
+                progressBar.style.width = `${progress}%`;
+            }, 200);
+        });
+
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = 'status-message ' + (type || '');
+        }
+
+        function resetUploadForm() {
+            uploadForm.reset();
+            videoPreview.src = '';
+            videoPreview.style.display = 'none';
+            previewContainer.style.display = 'none';
+            progressContainer.style.display = 'none';
+            progressBar.style.width = '0%';
+            uploadBtn.disabled = true;
+            uploadBtn.innerHTML = '<i class="fas fa-upload"></i> Upload Reel';
+        }
+
+        function addNewReelToFeed(videoUrl) {
+            const newReel = {
+                id: Date.now(), // Unique ID based on timestamp
+                username: "current user",
+                userImage: "",
+                videoUrl: videoUrl,
+                caption: captionInput.value || "Check out my new reel!",
+                likes: 0,
+                comments: 0,
+                music: "Original Sound - You"
+            };
+            
+            // Add to beginning of reels
+            allReels.unshift(newReel);
+            
+            // Save to localStorage
+            saveReelsToStorage();
+            
+            // Refresh reels feed
+            loadReels();
+            
+            // Switch to reels tab after a short delay
+            setTimeout(() => {
+                reelsTab.click();
+            }, 500);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadReels();
+            
+            // Set dark mode toggle
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            const whiteLogo = document.getElementById('white-color');
+            
+            darkModeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    whiteLogo.style.filter = 'brightness(5)';
+                } else {
+                    whiteLogo.style.filter = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
